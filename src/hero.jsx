@@ -4,7 +4,7 @@ const NAV_LINKS = ["Home", "Academic", "FAQ", "About", "Contact Us"];
 
 function HamburgerIcon({ open }) {
   return (
-    <div className="flex flex-col justify-center items-center cursor-pointer" style={{ width: 32, height: 32 }}>
+    <div style={{ width: 32, height: 32, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
       <span style={{
         display: "block", width: "22px", height: "2px", background: "#C9A84C", marginBottom: "5px",
         transform: open ? "translateY(7px) rotate(45deg)" : "translateY(0)",
@@ -89,7 +89,7 @@ function StarField() {
     return () => { cancelAnimationFrame(animFrameRef.current); window.removeEventListener("resize", resize); };
   }, []);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }} />;
+  return <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0 }} />;
 }
 
 export default function Hero() {
@@ -100,17 +100,15 @@ export default function Hero() {
   const [winHeight, setWinHeight] = useState(window.innerHeight);
 
   useEffect(() => {
-    const onResize = () => {
-      setWinWidth(window.innerWidth);
-      setWinHeight(window.innerHeight);
-    };
+    const onResize = () => { setWinWidth(window.innerWidth); setWinHeight(window.innerHeight); };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
   useEffect(() => {
     const onScroll = () => {
-      const progress = Math.min(window.scrollY / (winHeight * 0.6), 1);
+      // Trigger completes over 40% of viewport height (reduced from 60%)
+      const progress = Math.min(window.scrollY / (winHeight * 0.4), 1);
       setScrollProgress(progress);
       if (progress > 0.05) setMenuOpen(false);
     };
@@ -119,76 +117,92 @@ export default function Hero() {
   }, [winHeight]);
 
   const isMobile = winWidth < 768;
-  const heroLogoSize = isMobile ? 100 : 120;
-  const navLogoSize = 36;
+  const heroLogoSize = isMobile ? 90 : 110;
+  const navLogoSize = 34;
   const logoSize = heroLogoSize + (navLogoSize - heroLogoSize) * scrollProgress;
 
-  const heroTop = winHeight * 0.22;
+  // Hero: centered; Nav: top-left
+  const heroTop = winHeight * 0.28;
   const heroCenterX = winWidth / 2;
-  const navTop = 12;
-  const navLeft = 32;
+  const navTop = 13;
+  const navLeft = 28;
 
   const logoTop = heroTop + (navTop - heroTop) * scrollProgress;
   const logoLeft = heroCenterX + (navLeft - heroCenterX) * scrollProgress;
   const translateX = `${-50 * (1 - scrollProgress)}%`;
-  const textOpacity = 1 - scrollProgress * 2;
+
+  // Text fades out fast
+  const textOpacity = Math.max(1 - scrollProgress * 2.5, 0);
+
+  // Company name in navbar fades IN when logo arrives
+  const navNameOpacity = Math.max(0, (scrollProgress - 0.7) / 0.3);
 
   return (
-    <div className="relative" style={{ background: "radial-gradient(ellipse at 50% 40%, #0a0f1e 0%, #030508 100%)", minHeight: "200vh" }}>
+    <div style={{ background: "radial-gradient(ellipse at 50% 40%, #0a0f1e 0%, #030508 100%)", minHeight: "140vh", position: "relative" }}>
       <StarField />
 
       {/* ── NAVBAR ── */}
-      <nav
-        style={{
-          position: "fixed",
-          top: 0, left: 0, right: 0,
-          zIndex: 50,
-          height: "60px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          paddingLeft: "32px",
-          paddingRight: "32px",
-          background: scrollProgress > 0.1 ? `rgba(3,5,8,${scrollProgress * 0.88})` : "transparent",
-          backdropFilter: scrollProgress > 0.1 ? "blur(10px)" : "none",
-          transition: "background 0.3s",
-          borderBottom: scrollProgress > 0.5 ? `1px solid rgba(201,168,76,${(scrollProgress - 0.5) * 0.4})` : "1px solid transparent",
-        }}
-      >
-        {/* Left: logo placeholder */}
-        <div style={{ width: navLogoSize, height: navLogoSize, flexShrink: 0 }} />
+      <nav style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+        height: "60px", display: "flex", alignItems: "center",
+        justifyContent: "space-between",
+        paddingLeft: "28px", paddingRight: "32px",
+        background: scrollProgress > 0.1 ? `rgba(3,5,8,${Math.min(scrollProgress * 0.88, 0.88)})` : "transparent",
+        backdropFilter: scrollProgress > 0.1 ? "blur(10px)" : "none",
+        transition: "background 0.3s",
+        borderBottom: scrollProgress > 0.5 ? `1px solid rgba(201,168,76,${(scrollProgress - 0.5) * 0.4})` : "1px solid transparent",
+      }}>
+        {/* Left: logo placeholder + company name */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+          <div style={{ width: navLogoSize, height: navLogoSize }} />
+          {/* Company name fades in next to logo when scrolled */}
+          <span style={{
+            fontFamily: "'Cinzel', serif",
+            fontSize: "0.95rem",
+            fontWeight: 700,
+            color: "#C9A84C",
+            letterSpacing: "0.22em",
+            opacity: navNameOpacity,
+            transform: `translateX(${(1 - navNameOpacity) * -10}px)`,
+            transition: "none",
+            whiteSpace: "nowrap",
+            textShadow: "0 0 16px rgba(201,168,76,0.4)",
+            pointerEvents: "none",
+          }}>
+            ZENCODERS
+          </span>
+        </div>
 
-        {/* Right: desktop nav links */}
-        <ul
-          className="hidden md:flex items-center"
-          style={{ fontFamily: "'Cinzel', serif", listStyle: "none", margin: 0, padding: 0, gap: "2.5rem" }}
+        {/* Right: desktop nav links — always visible on md+, never hamburger */}
+        <ul style={{
+          display: "flex", alignItems: "center",
+          fontFamily: "'Cinzel', serif", listStyle: "none",
+          margin: 0, padding: 0, gap: "2.5rem",
+        }}
+          className="hidden md:flex"
         >
           {NAV_LINKS.map((link) => (
             <li key={link}>
-              <a
-                href="#"
-                style={{
-                  color: "rgba(255,255,255,0.92)",
-                  fontSize: "0.82rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.14em",
-                  textDecoration: "none",
-                  transition: "color 0.2s",
-                }}
+              <a href="#" style={{
+                color: "rgba(255,255,255,0.92)", fontSize: "0.82rem",
+                fontWeight: 700, letterSpacing: "0.14em",
+                textDecoration: "none", transition: "color 0.2s",
+              }}
                 onMouseEnter={e => e.target.style.color = "#C9A84C"}
                 onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.92)"}
-              >
-                {link}
-              </a>
+              >{link}</a>
             </li>
           ))}
         </ul>
 
-        {/* Right: hamburger on mobile only */}
+        {/* Hamburger: mobile ONLY — explicitly display:none on md+ */}
         <button
-          className="md:hidden"
           onClick={() => setMenuOpen(o => !o)}
-          style={{ background: "none", border: "none", padding: 0, cursor: "pointer", display: "flex", alignItems: "center" }}
+          style={{
+            background: "none", border: "none", padding: 0, cursor: "pointer",
+            display: winWidth >= 768 ? "none" : "flex",
+            alignItems: "center",
+          }}
           aria-label="Toggle menu"
         >
           <HamburgerIcon open={menuOpen} />
@@ -196,137 +210,121 @@ export default function Hero() {
       </nav>
 
       {/* ── MOBILE BACKDROP ── */}
-      <div
-        className="md:hidden fixed inset-0"
-        style={{
-          zIndex: 45,
-          background: "rgba(0,0,0,0.65)",
-          backdropFilter: "blur(4px)",
-          opacity: menuOpen ? 1 : 0,
-          pointerEvents: menuOpen ? "all" : "none",
-          transition: "opacity 0.3s ease",
-        }}
-        onClick={() => setMenuOpen(false)}
-      />
+      {winWidth < 768 && (
+        <div
+          onClick={() => setMenuOpen(false)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 45,
+            background: "rgba(0,0,0,0.65)", backdropFilter: "blur(4px)",
+            opacity: menuOpen ? 1 : 0,
+            pointerEvents: menuOpen ? "all" : "none",
+            transition: "opacity 0.3s ease",
+          }}
+        />
+      )}
 
       {/* ── MOBILE DRAWER ── */}
-      <div
-        className="md:hidden fixed top-0 right-0 flex flex-col"
-        style={{
-          zIndex: 50,
-          width: "72vw",
-          maxWidth: "290px",
-          height: "100vh",
+      {winWidth < 768 && (
+        <div style={{
+          position: "fixed", top: 0, right: 0, zIndex: 50,
+          width: "72vw", maxWidth: "290px", height: "100vh",
+          display: "flex", flexDirection: "column",
           background: "linear-gradient(160deg, #07101f 0%, #020508 100%)",
           borderLeft: "1px solid rgba(201,168,76,0.2)",
           boxShadow: menuOpen ? "-8px 0 40px rgba(0,0,0,0.6)" : "none",
           transform: menuOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 0.38s cubic-bezier(0.4, 0, 0.2, 1)",
-          paddingTop: "70px",
-          paddingLeft: "28px",
-          paddingRight: "28px",
-          paddingBottom: "36px",
-        }}
-      >
-        <button
-          onClick={() => setMenuOpen(false)}
-          style={{
+          paddingTop: "70px", paddingLeft: "28px", paddingRight: "28px", paddingBottom: "36px",
+        }}>
+          <button onClick={() => setMenuOpen(false)} style={{
             position: "absolute", top: "18px", right: "20px",
             background: "none", border: "none", cursor: "pointer",
             color: "rgba(201,168,76,0.65)", fontSize: "1.2rem", lineHeight: 1, padding: 4,
-          }}
-          aria-label="Close menu"
-        >✕</button>
+          }}>✕</button>
 
-        <div style={{ width: "36px", height: "1px", background: "linear-gradient(90deg, #C9A84C 0%, transparent 100%)", marginBottom: "1.8rem" }} />
+          <div style={{ width: "36px", height: "1px", background: "linear-gradient(90deg, #C9A84C 0%, transparent 100%)", marginBottom: "1.8rem" }} />
 
-        <nav>
-          {NAV_LINKS.map((link, i) => (
-            <a
-              key={link}
-              href="#"
-              onClick={() => setMenuOpen(false)}
-              style={{
-                display: "block",
-                fontFamily: "'Cinzel', serif",
-                fontSize: "0.92rem",
-                fontWeight: 700,
-                letterSpacing: "0.15em",
-                color: "rgba(255,255,255,0.82)",
-                padding: "0.9rem 0",
-                borderBottom: "1px solid rgba(201,168,76,0.1)",
-                textDecoration: "none",
+          <nav>
+            {NAV_LINKS.map((link, i) => (
+              <a key={link} href="#" onClick={() => setMenuOpen(false)} style={{
+                display: "block", fontFamily: "'Cinzel', serif",
+                fontSize: "0.92rem", fontWeight: 700, letterSpacing: "0.15em",
+                color: "rgba(255,255,255,0.82)", padding: "0.9rem 0",
+                borderBottom: "1px solid rgba(201,168,76,0.1)", textDecoration: "none",
                 transition: `color 0.2s ease, padding-left 0.2s ease, opacity 0.35s ease ${i * 55 + 80}ms, transform 0.35s ease ${i * 55 + 80}ms`,
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? "translateX(0)" : "translateX(20px)",
               }}
-              onMouseEnter={e => { e.currentTarget.style.color = "#C9A84C"; e.currentTarget.style.paddingLeft = "10px"; }}
-              onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.82)"; e.currentTarget.style.paddingLeft = "0"; }}
-            >
-              {link}
-            </a>
-          ))}
-        </nav>
+                onMouseEnter={e => { e.currentTarget.style.color = "#C9A84C"; e.currentTarget.style.paddingLeft = "10px"; }}
+                onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.82)"; e.currentTarget.style.paddingLeft = "0"; }}
+              >{link}</a>
+            ))}
+          </nav>
 
-        <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-          <div style={{ width: "1px", height: "32px", background: "linear-gradient(to bottom, rgba(201,168,76,0.4), transparent)" }} />
-          <ZenLogo size={42} goldColor="rgba(201,168,76,0.45)" />
-          <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.58rem", letterSpacing: "0.28em", color: "rgba(201,168,76,0.4)", margin: 0 }}>
-            CODE YOUR DREAMS
-          </p>
+          <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
+            <div style={{ width: "1px", height: "32px", background: "linear-gradient(to bottom, rgba(201,168,76,0.4), transparent)" }} />
+            <ZenLogo size={42} goldColor="rgba(201,168,76,0.45)" />
+            <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.58rem", letterSpacing: "0.28em", color: "rgba(201,168,76,0.4)", margin: 0 }}>
+              CODE YOUR DREAMS
+            </p>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── FLOATING LOGO ── */}
-      <div
-        style={{
-          position: "fixed",
-          zIndex: 50,
-          top: `${logoTop}px`,
-          left: `${logoLeft}px`,
-          transform: `translateX(${translateX})`,
-          pointerEvents: "none",
-          filter: `drop-shadow(0 0 ${12 - scrollProgress * 8}px rgba(201,168,76,0.6))`,
-        }}
-      >
+      <div style={{
+        position: "fixed", zIndex: 50,
+        top: `${logoTop}px`,
+        left: `${logoLeft}px`,
+        transform: `translateX(${translateX})`,
+        pointerEvents: "none",
+        filter: `drop-shadow(0 0 ${12 - scrollProgress * 8}px rgba(201,168,76,0.6))`,
+      }}>
         <ZenLogo size={logoSize} />
       </div>
 
       {/* ── HERO ── */}
       <div
         ref={heroRef}
-        className="relative flex flex-col items-center justify-center"
-        style={{ minHeight: "100vh", zIndex: 10, pointerEvents: "none" }}
+        style={{
+          minHeight: "100vh", position: "relative", zIndex: 10,
+          display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "center",
+          pointerEvents: "none",
+        }}
       >
-        <div style={{ height: heroLogoSize + 20 }} />
+        <div style={{ height: heroLogoSize + 16 }} />
 
-        <h1 className="text-center mt-4" style={{
+        <h1 style={{
           fontFamily: "'Cinzel Decorative', 'Cinzel', serif",
           fontSize: "clamp(2rem, 6vw, 5rem)",
-          fontWeight: 700, color: "#fff", letterSpacing: "0.25em",
-          opacity: Math.max(textOpacity, 0),
+          fontWeight: 700, color: "#fff",
+          letterSpacing: "0.25em",
+          opacity: textOpacity,
           textShadow: "0 0 40px rgba(201,168,76,0.25), 0 2px 8px rgba(0,0,0,0.8)",
-          lineHeight: 1.1,
+          lineHeight: 1.1, margin: "16px 0 0", textAlign: "center",
         }}>
           ZENCODERS
         </h1>
 
-        <p className="text-center mt-4 uppercase font-bold" style={{
+        <p style={{
           fontFamily: "'Rajdhani', sans-serif", color: "#C9A84C",
           letterSpacing: "0.35em", fontSize: "0.85rem",
-          opacity: Math.max(textOpacity, 0),
+          opacity: textOpacity,
           textShadow: "0 0 20px rgba(201,168,76,0.5)",
+          fontWeight: 700, textTransform: "uppercase",
+          marginTop: "16px", textAlign: "center",
         }}>
           Code Your Dreams
         </p>
 
         <div style={{
-          marginTop: "2rem", width: "120px", height: "1px",
+          marginTop: "1.5rem", width: "120px", height: "1px",
           background: "linear-gradient(90deg, transparent, #C9A84C, transparent)",
-          opacity: Math.max(textOpacity, 0),
+          opacity: textOpacity,
         }} />
 
-        <div className="mt-16 flex flex-col items-center gap-2" style={{ opacity: Math.max(textOpacity, 0) * 0.6 }}>
+        <div style={{ marginTop: "3rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", opacity: textOpacity * 0.6 }}>
           <span style={{ fontFamily: "monospace", fontSize: "0.62rem", color: "#C9A84C", letterSpacing: "0.2em" }}>SCROLL</span>
           <svg viewBox="0 0 20 20" fill="none" style={{ width: 20, height: 20, animation: "bounce 1.5s infinite" }}>
             <path d="M5 7l5 5 5-5" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" />
