@@ -96,13 +96,11 @@ export default function Hero() {
   const heroRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [winWidth, setWinWidth] = useState(window.innerWidth);
   const [winHeight, setWinHeight] = useState(window.innerHeight);
 
   useEffect(() => {
     const onResize = () => {
-      setIsMobile(window.innerWidth < 768);
       setWinWidth(window.innerWidth);
       setWinHeight(window.innerHeight);
     };
@@ -120,54 +118,57 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [winHeight]);
 
+  const isMobile = winWidth < 768;
   const heroLogoSize = isMobile ? 100 : 120;
   const navLogoSize = 36;
   const logoSize = heroLogoSize + (navLogoSize - heroLogoSize) * scrollProgress;
 
-  // Hero center: always horizontally centered regardless of screen size
   const heroTop = winHeight * 0.22;
   const heroCenterX = winWidth / 2;
-
-  // Nav destination: top-left
   const navTop = 12;
   const navLeft = 32;
 
   const logoTop = heroTop + (navTop - heroTop) * scrollProgress;
   const logoLeft = heroCenterX + (navLeft - heroCenterX) * scrollProgress;
-  // At hero: translateX(-50%) to center; at nav: translateX(0)
   const translateX = `${-50 * (1 - scrollProgress)}%`;
-
   const textOpacity = 1 - scrollProgress * 2;
 
   return (
-    <div className="relative min-h-screen" style={{ background: "radial-gradient(ellipse at 50% 40%, #0a0f1e 0%, #030508 100%)" }}>
+    <div className="relative" style={{ background: "radial-gradient(ellipse at 50% 40%, #0a0f1e 0%, #030508 100%)", minHeight: "200vh" }}>
       <StarField />
 
       {/* ── NAVBAR ── */}
       <nav
-        className="fixed top-0 left-0 right-0 z-50 flex items-center px-8"
         style={{
+          position: "fixed",
+          top: 0, left: 0, right: 0,
+          zIndex: 50,
           height: "60px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          paddingLeft: "32px",
+          paddingRight: "32px",
           background: scrollProgress > 0.1 ? `rgba(3,5,8,${scrollProgress * 0.88})` : "transparent",
           backdropFilter: scrollProgress > 0.1 ? "blur(10px)" : "none",
           transition: "background 0.3s",
           borderBottom: scrollProgress > 0.5 ? `1px solid rgba(201,168,76,${(scrollProgress - 0.5) * 0.4})` : "1px solid transparent",
         }}
       >
-        {/* Logo placeholder — keeps layout space */}
+        {/* Left: logo placeholder */}
         <div style={{ width: navLogoSize, height: navLogoSize, flexShrink: 0 }} />
 
-        {/* Desktop links — right aligned, bold */}
+        {/* Right: desktop nav links */}
         <ul
-          className="hidden md:flex items-center gap-8 ml-auto"
-          style={{ fontFamily: "'Cinzel', serif", listStyle: "none", margin: 0, padding: 0 }}
+          className="hidden md:flex items-center"
+          style={{ fontFamily: "'Cinzel', serif", listStyle: "none", margin: 0, padding: 0, gap: "2.5rem" }}
         >
           {NAV_LINKS.map((link) => (
             <li key={link}>
               <a
                 href="#"
                 style={{
-                  color: "rgba(255,255,255,0.9)",
+                  color: "rgba(255,255,255,0.92)",
                   fontSize: "0.82rem",
                   fontWeight: 700,
                   letterSpacing: "0.14em",
@@ -175,7 +176,7 @@ export default function Hero() {
                   transition: "color 0.2s",
                 }}
                 onMouseEnter={e => e.target.style.color = "#C9A84C"}
-                onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.9)"}
+                onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.92)"}
               >
                 {link}
               </a>
@@ -183,11 +184,11 @@ export default function Hero() {
           ))}
         </ul>
 
-        {/* Hamburger — mobile ONLY (hidden on md and above) */}
+        {/* Right: hamburger on mobile only */}
         <button
-          className="md:hidden ml-auto"
+          className="md:hidden"
           onClick={() => setMenuOpen(o => !o)}
-          style={{ background: "none", border: "none", padding: 0, cursor: "pointer", zIndex: 60, display: "flex", alignItems: "center" }}
+          style={{ background: "none", border: "none", padding: 0, cursor: "pointer", display: "flex", alignItems: "center" }}
           aria-label="Toggle menu"
         >
           <HamburgerIcon open={menuOpen} />
@@ -276,10 +277,11 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── FLOATING LOGO (always centered on hero, moves to nav on scroll) ── */}
+      {/* ── FLOATING LOGO ── */}
       <div
-        className="fixed z-50"
         style={{
+          position: "fixed",
+          zIndex: 50,
           top: `${logoTop}px`,
           left: `${logoLeft}px`,
           transform: `translateX(${translateX})`,
@@ -329,44 +331,6 @@ export default function Hero() {
           <svg viewBox="0 0 20 20" fill="none" style={{ width: 20, height: 20, animation: "bounce 1.5s infinite" }}>
             <path d="M5 7l5 5 5-5" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
-        </div>
-      </div>
-
-      {/* ── BELOW HERO ── */}
-      <div
-        className="relative"
-        style={{
-          minHeight: "150vh", zIndex: 10,
-          background: "linear-gradient(to bottom, transparent 0%, rgba(3,5,8,0.97) 20%)",
-          display: "flex", alignItems: "flex-start", justifyContent: "center",
-        }}
-      >
-        <div className="text-center px-8 max-w-2xl" style={{ paddingTop: "160px" }}>
-          <h2 style={{
-            fontFamily: "'Cinzel', serif", color: "#C9A84C",
-            fontSize: "1.4rem", letterSpacing: "0.2em", marginBottom: "1.5rem",
-          }}>
-            WHERE KNOWLEDGE MEETS ENLIGHTENMENT
-          </h2>
-          <p style={{ color: "rgba(255,255,255,0.55)", fontFamily: "Georgia, serif", lineHeight: 1.9, fontSize: "1rem" }}>
-            Zencoders is a platform dedicated to helping students and developers reach their highest potential.
-            Through structured academics, expert mentorship, and a community of focused minds — we help you code your dreams into reality.
-          </p>
-          <div style={{ marginTop: "3rem", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-            {["Explore Courses", "Join Community"].map((label, i) => (
-              <button key={label} style={{
-                fontFamily: "'Cinzel', serif", fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.15em",
-                padding: "0.75rem 2rem", border: "1px solid #C9A84C",
-                background: i === 0 ? "rgba(201,168,76,0.12)" : "transparent",
-                color: "#C9A84C", cursor: "pointer", transition: "all 0.2s",
-              }}
-                onMouseEnter={e => { e.target.style.background = "rgba(201,168,76,0.25)"; }}
-                onMouseLeave={e => { e.target.style.background = i === 0 ? "rgba(201,168,76,0.12)" : "transparent"; }}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
         </div>
       </div>
 
