@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
+
 const NAV_LINKS = ["Home", "Academic", "FAQ", "About", "Contact Us"];
 
 function HamburgerIcon({ open }) {
@@ -24,29 +25,13 @@ function HamburgerIcon({ open }) {
   );
 }
 
-function ZenLogo({ size = 120, goldColor = "#C9A84C" }) {
+function ZenLogo({ size = 220 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {[...Array(12)].map((_, i) => {
-        const angle = (i * 30 * Math.PI) / 180;
-        const inner = 28, outer = i % 3 === 0 ? 52 : 42;
-        return (
-          <line key={i}
-            x1={60 + inner * Math.cos(angle - Math.PI / 2)} y1={60 + inner * Math.sin(angle - Math.PI / 2)}
-            x2={60 + outer * Math.cos(angle - Math.PI / 2)} y2={60 + outer * Math.sin(angle - Math.PI / 2)}
-            stroke={goldColor} strokeWidth={i % 3 === 0 ? 1.5 : 0.8} strokeLinecap="round"
-          />
-        );
-      })}
-      <path d="M30 72 Q30 38 60 38 Q90 38 90 72" stroke={goldColor} strokeWidth="2" fill="none" />
-      <line x1="30" y1="72" x2="30" y2="88" stroke={goldColor} strokeWidth="2" />
-      <line x1="90" y1="72" x2="90" y2="88" stroke={goldColor} strokeWidth="2" />
-      <path d="M40 72 Q40 50 60 50 Q80 50 80 72" stroke={goldColor} strokeWidth="1" fill="none" opacity="0.6" />
-      <circle cx="60" cy="38" r="8" stroke={goldColor} strokeWidth="1.5" fill="none" />
-      <circle cx="60" cy="38" r="3" fill={goldColor} opacity="0.8" />
-      <path d="M22 84 Q35 78 48 82 Q55 80 60 82 Q65 80 72 82 Q85 78 98 84" stroke={goldColor} strokeWidth="1.2" fill="none" opacity="0.7" />
-      <path d="M28 90 Q42 84 55 87 Q60 85 65 87 Q78 84 92 90" stroke={goldColor} strokeWidth="1" fill="none" opacity="0.5" />
-    </svg>
+    <img
+      src="img/Zenlogo.png"
+      alt="ZenCoders Logo"
+      style={{ width: size, height: size, objectFit: "contain" }}
+    />
   );
 }
 
@@ -117,7 +102,7 @@ export default function Hero() {
   }, [winHeight]);
 
   const isMobile = winWidth < 768;
-  const heroLogoSize = isMobile ? 90 : 110;
+  const heroLogoSize = isMobile ? 160 : 220;
   const navLogoSize = 34;
   const logoSize = heroLogoSize + (navLogoSize - heroLogoSize) * scrollProgress;
 
