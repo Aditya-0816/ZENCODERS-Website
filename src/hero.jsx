@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-
 const NAV_LINKS = ["Home", "Academic", "FAQ", "About", "Contact Us"];
 
 function HamburgerIcon({ open }) {
