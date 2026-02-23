@@ -4,11 +4,13 @@ import './index.css'
 import Hero from './hero'
 import Team from './team'
 import Event from './event'
+import Gallery from './gallery'     
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Hero />
     <Team />
     <Event />
+    <Gallery />
   </StrictMode>,
 )
