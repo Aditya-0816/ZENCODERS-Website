@@ -613,39 +613,6 @@ export default function AcademicPage() {
       <Starfield />
       <NebulaOrbs />
 
-      {/* Navbar */}
-      <motion.nav
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55 }}
-        style={{
-          position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-          padding: "14px 36px",
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          background: "rgba(3,7,18,0.8)", backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(124,58,237,0.18)",
-        }}
-      >
-        <span style={{ fontFamily: "'Orbitron',sans-serif", fontWeight: 800, fontSize: "1rem" }}>
-          <span style={{ color: "#a78bfa" }}>⬡ ZEN</span>
-          <span style={{ color: "#60a5fa" }}>CODERS</span>
-        </span>
-        <div style={{ display: "flex", gap: 28 }}>
-          {["Home", "Academic", "Team", "Contact"].map((item) => (
-            <a
-              key={item} href="#"
-              style={{
-                fontFamily: "'Orbitron',sans-serif", fontSize: "0.62rem", letterSpacing: 1,
-                color: item === "Academic" ? "#a78bfa" : "#64748b",
-                textDecoration: "none", transition: "color 0.2s",
-              }}
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-      </motion.nav>
-
       <div style={{ paddingTop: 80, position: "relative", zIndex: 1 }}>
         <Hero />
         <Stats />
