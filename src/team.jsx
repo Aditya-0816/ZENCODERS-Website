@@ -6,10 +6,10 @@ const TEAM = [
     { id: 3, name: "Soumil Mittal", role: "Founder & President", bg: ["#3a3a5a", "#1a1a3a"] },
     { id: 4, name: "Shivansh Gupta", role: "Organising Secretrary", bg: ["#8B5A2B", "#6B3A0B"] },
     { id: 5, name: "Aditya Garg", role: "Technical Head", bg: ["#2B6B4A", "#0B4B2A"] },
-    { id: 6, name: "Ananya", role: "Technical Head", bg: ["#6B2B2B", "#4B0B0B"] },
+    { id: 6, name: "Ananya Agrawal", role: "Technical Head", bg: ["#6B2B2B", "#4B0B0B"] },
     { id: 7, name: "Saumya Sharma", role: "Management Head", bg: ["#2B4A6B", "#0B2A4B"] },
-    { id: 8, name: "Tanishq", role: "Public Relations", bg: ["#5A4A2B", "#3A2A0B"] },
-    { id: 9, name: "Priyansh", role: "Marketing Head", bg: ["#4B6B2B", "#2B4B0B"] },
+    { id: 8, name: "Tanishq Srivastava", role: "Public Relations", bg: ["#5A4A2B", "#3A2A0B"] },
+    { id: 9, name: "Priyansh Bhardwaj", role: "Marketing Head", bg: ["#4B6B2B", "#2B4B0B"] },
     { id: 10, name: "Tanya Jain", role: "Digital Head", bg: ["#6B4A2B", "#4B2A0B"] },
 ];
 
