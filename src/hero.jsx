@@ -293,7 +293,7 @@ export default function Hero() {
 
         <p style={{
           fontFamily: "'Rajdhani', sans-serif", color: "#C9A84C",
-          letterSpacing: "0.2em", fontSize: "3rem",
+          letterSpacing: "0.2em", fontSize: "2.8rem",
           opacity: textOpacity,
           textShadow: "0 0 20px rgba(201,168,76,0.5)",
           fontWeight: 700, textTransform: "uppercase",
