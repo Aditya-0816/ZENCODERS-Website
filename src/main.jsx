@@ -11,9 +11,9 @@ import Vault from './academic/vault'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Hero />
-    <Team />
     <Event />
     <Gallery />
+    <Team/>
     <Vault/>
   </StrictMode>,
 )
