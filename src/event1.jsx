@@ -23,8 +23,9 @@ const EVENTS = [
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=300&h=200&fit=crop",
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=300&h=200&fit=crop",
     ],
+    participants: 50,
     regLink: null,
-    regQR: null,
+    regQR: "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=ZenCoders-Orientation-2024&color=00d4ff&bgcolor=080d1e",
   },
   {
     id: 2,
@@ -45,8 +46,9 @@ const EVENTS = [
       "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=300&h=200&fit=crop",
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=300&h=200&fit=crop",
     ],
+    participants: 50,
     regLink: null,
-    regQR: null,
+    regQR: "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=ZenCoders-CodeCraft-2024&color=a855f7&bgcolor=080d1e",
   },
   {
     id: 3,
@@ -67,8 +69,9 @@ const EVENTS = [
       "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=300&h=200&fit=crop",
       "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=300&h=200&fit=crop",
     ],
+    participants: 180,
     regLink: null,
-    regQR: null,
+    regQR: "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=ZenCoders-Orientation-2025&color=00d4ff&bgcolor=080d1e",
   },
   {
     id: 4,
@@ -89,8 +92,9 @@ const EVENTS = [
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&h=200&fit=crop",
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&h=200&fit=crop",
     ],
+    participants: 50,
     regLink: null,
-    regQR: null,
+    regQR: "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=ZenCoders-CodeCraft2-2025&color=f59e0b&bgcolor=080d1e",
   },
   {
     id: 5,
@@ -112,6 +116,7 @@ const EVENTS = [
       "https://images.unsplash.com/photo-1562813733-b31f71025d54?w=300&h=200&fit=crop",
       "https://images.unsplash.com/photo-1547658719-da2b51169166?w=300&h=200&fit=crop",
     ],
+    participants: 55,
     regLink: "https://forms.google.com",
     regQR: "https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://forms.google.com&color=f472b6&bgcolor=0d0a1e",
   },
@@ -134,6 +139,7 @@ const EVENTS = [
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=300&h=200&fit=crop",
       "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=300&h=200&fit=crop",
     ],
+    participants: 52,
     regLink: "https://forms.google.com",
     regQR: "https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://forms.google.com&color=f472b6&bgcolor=0d0a1e",
   },
@@ -467,10 +473,10 @@ function EventModal({ event, onClose }) {
   }, [onClose]);
 
   const Section = ({ title, children }) => (
-    <div style={{ marginBottom: 20 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-        <div style={{ width: 3, height: 14, background: event.accent, borderRadius: 2 }} />
-        <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.62rem", color: event.accent, letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 700 }}>{title}</span>
+    <div style={{ marginBottom: 14 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+        <div style={{ width: 3, height: 11, background: event.accent, borderRadius: 2 }} />
+        <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.56rem", color: event.accent, letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700 }}>{title}</span>
         <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, " + event.accent + "40, transparent)" }} />
       </div>
       {children}
@@ -482,194 +488,251 @@ function EventModal({ event, onClose }) {
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       style={{
         position: "fixed", inset: 0, zIndex: 1000,
-        background: "rgba(0,0,0,0.85)",
-        backdropFilter: "blur(8px)",
+        background: "rgba(3,5,10,0.52)",
+        backdropFilter: "blur(6px)",
+        WebkitBackdropFilter: "blur(6px)",
         display: "flex", alignItems: "center", justifyContent: "center",
-        padding: "20px",
+        padding: "40px 20px",
         animation: "fadeIn 0.2s ease",
       }}
     >
       <div style={{
-        width: "100%", maxWidth: 860, maxHeight: "90vh",
-        background: "linear-gradient(135deg, #080d1e 0%, #0d0a1e 100%)",
-        border: "1px solid rgba(" + accentRGB + ",0.3)",
-        borderRadius: 20, overflow: "hidden",
-        boxShadow: "0 0 80px rgba(" + accentRGB + ",0.15), 0 40px 80px rgba(0,0,0,0.8)",
+        width: "100%", maxWidth: 860,
+        maxHeight: "78vh",
+        background: "linear-gradient(135deg, rgba(8,13,30,0.97) 0%, rgba(13,10,30,0.97) 100%)",
+        border: "1px solid rgba(" + accentRGB + ",0.28)",
+        borderRadius: 18, overflow: "hidden",
+        boxShadow: "0 0 60px rgba(" + accentRGB + ",0.12), 0 24px 60px rgba(0,0,0,0.5)",
         display: "flex", flexDirection: "column", position: "relative",
       }}>
+        {/* Top accent line */}
         <div style={{ height: 2, background: "linear-gradient(90deg, transparent, " + event.accent + ", rgba(" + accentRGB + ",0.4), transparent)", flexShrink: 0 }} />
 
+        {/* Close button */}
         <button onClick={onClose} style={{
-          position: "absolute", top: 14, right: 14, zIndex: 10,
-          width: 30, height: 30, borderRadius: "50%",
+          position: "absolute", top: 12, right: 12, zIndex: 10,
+          width: 28, height: 28, borderRadius: "50%",
           background: "rgba(255,255,255,0.06)",
           border: "1px solid rgba(255,255,255,0.12)",
-          color: "rgba(255,255,255,0.7)", fontSize: "0.9rem",
+          color: "rgba(255,255,255,0.7)", fontSize: "0.82rem",
           cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
         }}
-          onMouseEnter={e => { e.currentTarget.style.background = "rgba(" + accentRGB + ",0.2)"; e.currentTarget.style.color = "#fff"; }}
+          onMouseEnter={e => { e.currentTarget.style.background = "rgba(" + accentRGB + ",0.25)"; e.currentTarget.style.color = "#fff"; }}
           onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; }}
         >✕</button>
 
-        <div style={{ overflowY: "auto", flex: 1, padding: "24px" }}>
+        {/* Main 2-column layout */}
+        <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
 
-          <div style={{ display: "flex", gap: 24, marginBottom: 24, flexWrap: "wrap" }}>
+          {/* ── LEFT: poster + name + prize (locked, no scroll) ── */}
+          <div style={{
+            width: 220, flexShrink: 0,
+            borderRight: "1px solid rgba(" + accentRGB + ",0.12)",
+            display: "flex", flexDirection: "column",
+            padding: "16px 14px",
+            gap: 12,
+          }}>
+            {/* Poster */}
             <div style={{
-              width: 200, flexShrink: 0, borderRadius: 12,
-              background: "linear-gradient(135deg, rgba(" + accentRGB + ",0.15), rgba(0,0,0,0.4))",
-              border: "1px solid rgba(" + accentRGB + ",0.2)",
-              overflow: "hidden", minHeight: 260,
-              display: "flex", alignItems: "center", justifyContent: "center",
+              width: "100%", height: 200, borderRadius: 10, overflow: "hidden", flexShrink: 0,
+              background: "linear-gradient(135deg, rgba(" + accentRGB + ",0.12), rgba(0,0,0,0.5))",
+              border: "1px solid rgba(" + accentRGB + ",0.18)",
             }}>
               {event.poster ? (
-                <img src={event.poster} alt="poster" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img src={event.poster} alt="poster" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               ) : (
-                <div style={{ textAlign: "center", padding: 20 }}>
-                  <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.58rem", color: "rgba(" + accentRGB + ",0.4)", letterSpacing: "0.1em" }}>EVENT POSTER</span>
-                  <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.52rem", color: "rgba(255,255,255,0.2)", marginTop: 6 }}>Add poster path to event data</p>
+                <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ fontSize: "1.8rem", opacity: 0.18, display: "block", marginBottom: 6 }}>🖼️</span>
+                  <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.48rem", color: "rgba(" + accentRGB + ",0.35)", letterSpacing: "0.1em" }}>EVENT POSTER</span>
                 </div>
               )}
             </div>
 
-            <div style={{ flex: 1, minWidth: 200 }}>
-              <HoloBadge text={event.tag} color={event.accent} />
+            {/* Event name */}
+            <div>
               <h2 style={{
-                fontFamily: "'Cinzel', serif",
-                fontSize: "clamp(1rem, 2.5vw, 1.4rem)",
-                fontWeight: 700, color: "#fff",
-                margin: "12px 0 16px", lineHeight: 1.4,
+                fontFamily: "'Cinzel', serif", fontSize: "0.88rem",
+                fontWeight: 700, color: "#fff", margin: "0 0 3px", lineHeight: 1.35,
               }}>
                 {event.title.split("–")[0].trim()}
-                {event.title.includes("–") && (
-                  <span style={{ display: "block", color: "rgba(" + accentRGB + ",0.9)" }}>
-                    {event.title.split("–")[1].trim()}
-                  </span>
-                )}
               </h2>
+              {event.title.includes("–") && (
+                <span style={{
+                  display: "block", fontFamily: "'Cinzel', serif",
+                  fontSize: "0.78rem", color: "rgba(" + accentRGB + ",0.88)", lineHeight: 1.35,
+                }}>
+                  {event.title.split("–")[1].trim()}
+                </span>
+              )}
+            </div>
+
+            {/* Registration below name — always shown */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
+                <div style={{ width: 3, height: 12, background: event.accent, borderRadius: 2 }} />
+                <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", color: event.accent, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>Registration</span>
+              </div>
+              {/* QR on top */}
+              <div style={{
+                width: "100%", height: 140, borderRadius: 8, marginBottom: 8,
+                background: "rgba(255,255,255,0.04)",
+                border: "1px dashed rgba(" + accentRGB + ",0.28)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                overflow: "hidden", position: "relative",
+              }}>
+                <img
+                  src={event.regQR}
+                  alt="QR"
+                  style={{
+                    width: "100%", height: "100%", objectFit: "contain",
+                    opacity: !event.regLink && !isUpcoming ? 0.28 : 1,
+                  }}
+                />
+                {!event.regLink && !isUpcoming && (
+                  <div style={{
+                    position: "absolute", inset: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <span style={{
+                      fontFamily: "'Rajdhani', sans-serif",
+                      fontSize: "1rem", fontWeight: 700,
+                      color: "rgba(255,255,255,0.55)",
+                      letterSpacing: "0.35em", textTransform: "uppercase",
+                    }}>CLOSED</span>
+                  </div>
+                )}
+              </div>
+              {/* Register Now button below QR */}
+              {event.regLink ? (
+                <a href={event.regLink} target="_blank" rel="noopener noreferrer" style={{
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                  fontFamily: "'Rajdhani', sans-serif", fontSize: "0.72rem", fontWeight: 700,
+                  color: event.accent, textDecoration: "none",
+                  border: "1px solid rgba(" + accentRGB + ",0.35)",
+                  borderRadius: 7, padding: "8px 12px",
+                  background: "rgba(" + accentRGB + ",0.08)",
+                  letterSpacing: "0.08em", textTransform: "uppercase",
+                }}>🔗 Register Now</a>
+              ) : (
+                <div style={{
+                  fontFamily: "'Rajdhani', sans-serif", fontSize: "0.68rem",
+                  color: "rgba(255,255,255,0.2)",
+                  border: "1px dashed rgba(255,255,255,0.07)",
+                  borderRadius: 7, padding: "8px 12px", textAlign: "center",
+                  letterSpacing: "0.06em",
+                }}>
+                  {isUpcoming ? "Link coming soon" : "Registration closed"}
+                </div>
+              )}
+            </div>
+
+          </div>
+
+          {/* ── RIGHT: permanently fixed, no scroll ── */}
+          <div style={{ flex: 1, overflowY: "auto", padding: "16px 18px" }}>
+
+            {/* Badge + date/time/venue/category */}
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ marginBottom: 12 }}>
+                <HoloBadge text={event.tag} color={event.accent} />
+              </div>
               {[
                 { icon: "📅", label: "Date", value: event.date },
                 { icon: "🕐", label: "Time", value: event.time },
                 { icon: "📍", label: "Venue", value: event.location },
                 { icon: "🏷️", label: "Category", value: event.category },
               ].map(({ icon, label, value }) => (
-                <div key={label} style={{ display: "flex", gap: 10, marginBottom: 8, alignItems: "flex-start" }}>
-                  <span style={{ fontSize: "0.72rem", flexShrink: 0, marginTop: 1 }}>{icon}</span>
+                <div key={label} style={{ display: "flex", gap: 10, marginBottom: 10, alignItems: "flex-start" }}>
+                  <span style={{ fontSize: "0.68rem", flexShrink: 0, marginTop: 1 }}>{icon}</span>
                   <div>
-                    <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.58rem", color: "rgba(" + accentRGB + ",0.6)", letterSpacing: "0.15em", textTransform: "uppercase", display: "block" }}>{label}</span>
-                    <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.75)", letterSpacing: "0.04em" }}>{value}</span>
+                    <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.5rem", color: "rgba(" + accentRGB + ",0.5)", letterSpacing: "0.18em", textTransform: "uppercase", display: "block", marginBottom: 1 }}>{label}</span>
+                    <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.74rem", color: "rgba(255,255,255,0.82)", letterSpacing: "0.03em" }}>{value}</span>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
 
-          <Section title="About the Event">
-            <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.8rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.75, letterSpacing: "0.03em" }}>
-              {event.description || "Description coming soon."}
-            </p>
-          </Section>
+            <div style={{ borderTop: "1px solid rgba(" + accentRGB + ",0.1)", paddingTop: 14 }}>
 
-          {event.prize && (
-            <Section title="Prize Pool">
-              <div style={{
-                background: "rgba(" + accentRGB + ",0.06)",
-                border: "1px solid rgba(" + accentRGB + ",0.2)",
-                borderRadius: 10, padding: "12px 16px",
-              }}>
-                <p style={{ fontFamily: "'Cinzel', serif", fontSize: "0.78rem", color: "#fff", margin: 0, lineHeight: 1.8 }}>
-                  {event.prize}
+              {/* About */}
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
+                  <div style={{ width: 3, height: 12, background: event.accent, borderRadius: 2 }} />
+                  <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", color: event.accent, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>About the Event</span>
+                  <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, " + event.accent + "40, transparent)" }} />
+                </div>
+                <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.76rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.8, letterSpacing: "0.02em", margin: 0 }}>
+                  {event.description || "Description coming soon."}
                 </p>
               </div>
-            </Section>
-          )}
 
-          {event.winners && event.winners.length > 0 && (
-            <Section title="Winners">
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {event.winners.map((w, i) => (
-                  <div key={i} style={{
-                    display: "flex", alignItems: "center", gap: 10,
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    borderRadius: 8, padding: "8px 14px",
-                  }}>
-                    <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", letterSpacing: "0.04em" }}>{w}</span>
+              {/* Prize Pool */}
+              {event.prize && (
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
+                    <div style={{ width: 3, height: 12, background: event.accent, borderRadius: 2 }} />
+                    <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", color: event.accent, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>Prize Pool</span>
+                    <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, " + event.accent + "40, transparent)" }} />
                   </div>
-                ))}
-              </div>
-            </Section>
-          )}
-
-          {(event.regLink || event.regQR || isUpcoming) && (
-            <Section title="Registration">
-              <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "flex-start" }}>
-                <div style={{
-                  width: 110, height: 110, borderRadius: 10, flexShrink: 0,
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px dashed rgba(" + accentRGB + ",0.3)",
-                  display: "flex", flexDirection: "column",
-                  alignItems: "center", justifyContent: "center", gap: 6,
-                  overflow: "hidden",
-                }}>
-                  {event.regQR ? (
-                    <img src={event.regQR} alt="QR Code" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-                  ) : (
-                    <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.48rem", color: "rgba(" + accentRGB + ",0.4)", letterSpacing: "0.08em", textAlign: "center" }}>QR CODE{"\n"}COMING SOON</span>
-                  )}
-                </div>
-                <div style={{ flex: 1, minWidth: 160 }}>
-                  <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.62rem", color: "rgba(255,255,255,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Registration Link</p>
-                  {event.regLink ? (
-                    <a href={event.regLink} target="_blank" rel="noopener noreferrer" style={{
-                      display: "inline-flex", alignItems: "center", gap: 6,
-                      fontFamily: "'Rajdhani', sans-serif", fontSize: "0.72rem",
-                      color: event.accent, textDecoration: "none",
-                      border: "1px solid rgba(" + accentRGB + ",0.3)",
-                      borderRadius: 8, padding: "8px 14px",
-                      background: "rgba(" + accentRGB + ",0.08)",
-                      letterSpacing: "0.06em",
-                    }}>
-                      🔗 Register Now
-                    </a>
-                  ) : (
-                    <div style={{
-                      fontFamily: "'Rajdhani', sans-serif", fontSize: "0.68rem",
-                      color: "rgba(255,255,255,0.25)", letterSpacing: "0.06em",
-                      border: "1px dashed rgba(255,255,255,0.08)",
-                      borderRadius: 8, padding: "8px 14px",
-                    }}>
-                      {isUpcoming ? "Link will be added soon" : "Registration closed"}
+                  <div style={{
+                    background: "rgba(" + accentRGB + ",0.06)",
+                    border: "1px solid rgba(" + accentRGB + ",0.18)",
+                    borderRadius: 7, padding: "8px 12px",
+                    marginBottom: event.winners && event.winners.length > 0 ? 8 : 0,
+                  }}>
+                    <p style={{ fontFamily: "'Cinzel', serif", fontSize: "0.68rem", color: "#fff", margin: 0, lineHeight: 1.85 }}>
+                      {event.prize}
+                    </p>
+                  </div>
+                  {event.winners && event.winners.length > 0 && (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                      {event.winners.map((w, i) => (
+                        <div key={i} style={{
+                          background: "rgba(255,255,255,0.03)",
+                          border: "1px solid rgba(255,255,255,0.06)",
+                          borderRadius: 6, padding: "5px 10px",
+                        }}>
+                          <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.68rem", color: "rgba(255,255,255,0.75)", letterSpacing: "0.03em" }}>{w}</span>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
-              </div>
-            </Section>
-          )}
+              )}
 
-          <Section title="Event Gallery">
-            {event.pics && event.pics.length > 0 ? (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))", gap: 8 }}>
-                {event.pics.map((pic, i) => (
-                  <div key={i} style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "4/3" }}>
-                    <img src={pic} alt={"pic-" + i} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              {/* Event Gallery */}
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
+                  <div style={{ width: 3, height: 12, background: event.accent, borderRadius: 2 }} />
+                  <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", color: event.accent, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>Event Gallery</span>
+                  <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, " + event.accent + "40, transparent)" }} />
+                </div>
+                {event.pics && event.pics.length > 0 ? (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
+                    {event.pics.slice(0, 6).map((pic, i) => (
+                      <div key={i} style={{ borderRadius: 6, overflow: "hidden", aspectRatio: "4/3" }}>
+                        <img src={pic} alt={"pic-" + i} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                ) : (
+                  <div style={{
+                    border: "1px dashed rgba(255,255,255,0.07)",
+                    borderRadius: 8, padding: "14px",
+                    textAlign: "center", background: "rgba(255,255,255,0.01)",
+                  }}>
+                    <span style={{ fontSize: "1rem", display: "block", marginBottom: 4, opacity: 0.2 }}>🖼️</span>
+                    <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.58rem", color: "rgba(255,255,255,0.18)", letterSpacing: "0.06em" }}>
+                      {isUpcoming ? "Photos after the event" : "No photos yet"}
+                    </p>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div style={{
-                border: "1px dashed rgba(255,255,255,0.08)",
-                borderRadius: 10, padding: "24px",
-                textAlign: "center", background: "rgba(255,255,255,0.01)",
-              }}>
-                <span style={{ fontSize: "1.4rem", display: "block", marginBottom: 6, opacity: 0.3 }}>🖼️</span>
-                <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.65rem", color: "rgba(255,255,255,0.2)", letterSpacing: "0.08em" }}>
-                  {isUpcoming ? "Photos will be added after the event" : "No photos added yet"}
-                </p>
-              </div>
-            )}
-          </Section>
 
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   );
@@ -779,7 +842,7 @@ function EventRow({ event, index }) {
                 {String.fromCharCode(65 + j)}
               </div>
             ))}
-            <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.52rem", color: "rgba(255,255,255,0.3)", marginLeft: 6 }}>+4</span>
+            <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.52rem", color: "rgba(255,255,255,0.3)", marginLeft: 6 }}>{event.participants ? "+" + event.participants : "+4"}</span>
           </div>
         </div>
       </div>
