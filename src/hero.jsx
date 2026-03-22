@@ -27,7 +27,7 @@ function HamburgerIcon({ open }) {
 function ZenLogo({ size = 220 }) {
   return (
     <img
-      src="img/Zenlogo.png"
+      src="/assets/Zenlogo.png"
       alt="ZenCoders Logo"
       style={{ width: size, height: size, objectFit: "contain" }}
     />

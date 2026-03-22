@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 
 const TEAM = [
-    { id: 1, name: "Aryesh Srivastava", role: "Senior Advisor", img: "Aditya.png", bg: ["#8B4A6B", "#6B2A4B"] },
-    { id: 2, name: "Amritanshu", role: "Senior Advisor", img: "Amritanshu.png", bg: ["#6B4A8B", "#4B2A6B"] },
-    { id: 3, name: "Soumil Mittal", role: "Founder & President", img: "Soumil.png", bg: ["#3a3a5a", "#1a1a3a"] },
-    { id: 4, name: "Shivansh Gupta", role: "Organising Secretary", img: "Shivansh.png", bg: ["#8B5A2B", "#6B3A0B"] },
-    { id: 5, name: "Aditya Garg", role: "Technical Head", img: "img/Aditya.png", bg: ["#2B6B4A", "#0B4B2A"] },
-    { id: 6, name: "Ananya Agrawal", role: "Technical Head", img: "img/Ananya.png", bg: ["#6B2B2B", "#4B0B0B"] },
-    { id: 7, name: "Saumya Sharma", role: "Management Head", img: "img/Saumya.png", bg: ["#2B4A6B", "#0B2A4B"] },
-    { id: 8, name: "Tanishq Srivastava", role: "Public Relations", img: "img/Tanishq.png", bg: ["#5A4A2B", "#3A2A0B"] },
-    { id: 9, name: "Priyansh Bhardwaj", role: "Marketing Head", img: "img/Priyansh.png", bg: ["#4B6B2B", "#2B4B0B"] },
-    { id: 10, name: "Tanya Jain", role: "Digital Head", img: "/img/Tanya.png", bg: ["#6B4A2B", "#4B2A0B"] },
+    { id: 1,  name: "Aryesh Srivastava",  role: "Senior Advisor",       img: "/assets/Aryesh.png",     bg: ["#8B4A6B", "#6B2A4B"] },
+    { id: 2,  name: "Amritanshu",         role: "Senior Advisor",       img: "/assets/Amritanshu.png", bg: ["#6B4A8B", "#4B2A6B"] },
+    { id: 3,  name: "Soumil Mittal",      role: "Founder & President",  img: "/assets/Soumil.png",     bg: ["#3a3a5a", "#1a1a3a"] },
+    { id: 4,  name: "Shivansh Gupta",     role: "Organising Secretary", img: "/assets/Shivansh.png",   bg: ["#8B5A2B", "#6B3A0B"] },
+    { id: 5,  name: "Aditya Garg",        role: "Technical Head",       img: "/assets/Aditya.png",     bg: ["#2B6B4A", "#0B4B2A"] },
+    { id: 6,  name: "Ananya Agrawal",     role: "Technical Head",       img: "/assets/Ananya.png",     bg: ["#6B2B2B", "#4B0B0B"] },
+    { id: 7,  name: "Saumya Sharma",      role: "Management Head",      img: "/assets/Saumya.png",     bg: ["#2B4A6B", "#0B2A4B"] },
+    { id: 8,  name: "Tanishq Srivastava", role: "Public Relations",     img: "/assets/Tanishq.png",    bg: ["#5A4A2B", "#3A2A0B"] },
+    { id: 9,  name: "Priyansh Bhardwaj",  role: "Marketing Head",       img: "/assets/Priyansh.png",   bg: ["#4B6B2B", "#2B4B0B"] },
+    { id: 10, name: "Tanya Jain",         role: "Digital Head",         img: "/assets/Tanya.png",      bg: ["#6B4A2B", "#4B2A0B"] },
 ];
 
 const CARD_W = 155;
-const CARD_H = 195;
+const CARD_H = 200;
 const RX = 500;
 const RY = 85;
 
@@ -24,13 +24,16 @@ function Avatar({ name, img, bg }) {
 
     return (
         <div style={{
-            width: "100%", height: "100%",
+            width: "100%",
+            height: "100%",
             background: `linear-gradient(145deg, ${bg[0]}, ${bg[1]})`,
-            display: "flex", flexDirection: "column",
-            alignItems: "center", justifyContent: "center",
-            position: "relative", overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+            overflow: "hidden",
         }}>
-            {/* Full card image */}
             {!imgError ? (
                 <img
                     src={img}
@@ -38,7 +41,8 @@ function Avatar({ name, img, bg }) {
                     onError={() => setImgError(true)}
                     style={{
                         position: "absolute",
-                        inset: 0,
+                        top: 0,
+                        left: 0,
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
@@ -47,13 +51,18 @@ function Avatar({ name, img, bg }) {
                     }}
                 />
             ) : (
-                /* Fallback: initials if image fails */
+                /* Fallback initials if image fails to load */
                 <>
                     <div style={{
-                        width: 64, height: 64, borderRadius: "50%",
+                        width: 64,
+                        height: 64,
+                        borderRadius: "50%",
                         background: "rgba(255,255,255,0.13)",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "1.4rem", fontWeight: 800,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "1.4rem",
+                        fontWeight: 800,
                         color: "rgba(255,255,255,0.92)",
                         fontFamily: "'Cinzel', serif",
                         border: "1px solid rgba(255,255,255,0.22)",
@@ -63,21 +72,27 @@ function Avatar({ name, img, bg }) {
                     </div>
                     <p style={{
                         fontFamily: "'Cinzel', serif",
-                        fontSize: "0.6rem", fontWeight: 700,
+                        fontSize: "0.6rem",
+                        fontWeight: 700,
                         color: "rgba(255,255,255,0.7)",
                         letterSpacing: "0.06em",
                         textAlign: "center",
-                        padding: "0 10px", margin: "10px 0 0",
+                        padding: "0 10px",
+                        margin: "10px 0 0",
                         lineHeight: 1.4,
-                    }}>{name}</p>
+                    }}>
+                        {name}
+                    </p>
                 </>
             )}
 
-            {/* Subtle gradient overlay at bottom for readability */}
+            {/* Bottom gradient overlay for text readability */}
             {!imgError && (
                 <div style={{
                     position: "absolute",
-                    bottom: 0, left: 0, right: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
                     height: "40%",
                     background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)",
                     pointerEvents: "none",
@@ -132,9 +147,12 @@ export default function Team() {
         <div style={{
             minHeight: "100vh",
             background: "radial-gradient(ellipse at 50% 40%, #0d1020 0%, #050709 100%)",
-            display: "flex", flexDirection: "column",
-            alignItems: "center", justifyContent: "center",
-            overflow: "hidden", position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+            position: "relative",
             padding: "40px 0",
         }}>
 
@@ -161,7 +179,7 @@ export default function Team() {
                 animation: "blob1 9s ease-in-out infinite 2s",
             }} />
 
-            {/* Green left accent */}
+            {/* Green left accent line */}
             <div style={{
                 position: "absolute", left: 0, top: "15%", bottom: "15%", width: "3px",
                 background: "linear-gradient(to bottom, transparent, #22c55e 40%, #22c55e 60%, transparent)",
@@ -169,11 +187,18 @@ export default function Team() {
             }} />
 
             {/* Header */}
-            <div style={{ textAlign: "center", zIndex: 100, position: "relative", marginBottom: "10px" }}>
+            <div style={{
+                textAlign: "center",
+                zIndex: 100,
+                position: "relative",
+                marginBottom: "10px",
+            }}>
                 <h2 style={{
                     fontFamily: "'Cinzel', serif",
                     fontSize: "clamp(1.8rem, 4vw, 3rem)",
-                    fontWeight: 800, color: "#fff", margin: 0,
+                    fontWeight: 800,
+                    color: "#fff",
+                    margin: 0,
                     letterSpacing: "0.04em",
                     textShadow: "0 2px 40px rgba(255,255,255,0.15)",
                 }}>
@@ -183,11 +208,14 @@ export default function Team() {
                     fontFamily: "'Rajdhani', sans-serif",
                     fontSize: "clamp(0.82rem, 1.8vw, 0.98rem)",
                     color: "rgba(255,255,255,0.48)",
-                    marginTop: "10px", maxWidth: "480px",
-                    lineHeight: 1.7, letterSpacing: "0.02em",
+                    marginTop: "10px",
+                    maxWidth: "480px",
+                    lineHeight: 1.7,
+                    letterSpacing: "0.02em",
                     margin: "10px auto 0",
                 }}>
-                    A diverse team of passionate professionals with unique skills driving innovation and excellence in every project.
+                    A diverse team of passionate professionals with unique skills driving
+                    innovation and excellence in every project.
                 </p>
             </div>
 
@@ -232,9 +260,10 @@ export default function Team() {
                                 borderRadius: "18px",
                             }}
                         >
-                            {/* Card */}
+                            {/* Card inner */}
                             <div style={{
-                                width: "100%", height: "100%",
+                                width: "100%",
+                                height: "100%",
                                 borderRadius: "18px",
                                 overflow: "hidden",
                                 border: isHov
@@ -245,10 +274,14 @@ export default function Team() {
                                     : "0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07)",
                                 transition: "box-shadow 0.35s ease, border-color 0.35s ease",
                             }}>
-                                <Avatar name={member.name} img={member.img} bg={member.bg} />
+                                <Avatar
+                                    name={member.name}
+                                    img={member.img}
+                                    bg={member.bg}
+                                />
                             </div>
 
-                            {/* Role tag below card */}
+                            {/* Name + role tag below card */}
                             <div style={{
                                 position: "absolute",
                                 bottom: "-42px",
@@ -262,11 +295,15 @@ export default function Team() {
                             }}>
                                 <p style={{
                                     fontFamily: "'Cinzel', serif",
-                                    fontSize: "0.72rem", fontWeight: 700,
-                                    color: "#fff", margin: 0,
+                                    fontSize: "0.72rem",
+                                    fontWeight: 700,
+                                    color: "#fff",
+                                    margin: 0,
                                     letterSpacing: "0.07em",
                                     textShadow: "0 1px 8px rgba(0,0,0,0.9)",
-                                }}>{member.name}</p>
+                                }}>
+                                    {member.name}
+                                </p>
                                 <p style={{
                                     fontFamily: "'Rajdhani', sans-serif",
                                     fontSize: "0.63rem",
@@ -275,7 +312,9 @@ export default function Team() {
                                     letterSpacing: "0.1em",
                                     textTransform: "uppercase",
                                     textShadow: "0 1px 8px rgba(0,0,0,0.9)",
-                                }}>{member.role}</p>
+                                }}>
+                                    {member.role}
+                                </p>
                             </div>
                         </div>
                     );
@@ -283,17 +322,17 @@ export default function Team() {
             </div>
 
             <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Rajdhani:wght@400;600&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        @keyframes blob1 {
-          0%, 100% { transform: translateY(0) scale(1); }
-          50%       { transform: translateY(-20px) scale(1.08); }
-        }
-        @keyframes blob2 {
-          0%, 100% { transform: translateY(0) scale(1); }
-          50%       { transform: translateY(20px) scale(1.06); }
-        }
-      `}</style>
+                @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Rajdhani:wght@400;600&display=swap');
+                * { box-sizing: border-box; margin: 0; padding: 0; }
+                @keyframes blob1 {
+                    0%, 100% { transform: translateY(0) scale(1); }
+                    50%       { transform: translateY(-20px) scale(1.08); }
+                }
+                @keyframes blob2 {
+                    0%, 100% { transform: translateY(0) scale(1); }
+                    50%       { transform: translateY(20px) scale(1.06); }
+                }
+            `}</style>
         </div>
     );
 }
