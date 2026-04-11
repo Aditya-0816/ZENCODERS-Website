@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TABS = ["All Events", "Orientation", "Workshops", "Fest Events"];
 
@@ -23,7 +24,7 @@ const EVENTS = [
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=300&h=200&fit=crop",
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=300&h=200&fit=crop",
     ],
-    participants: 50,
+    participants: 80,
     regLink: null,
     regQR: "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=ZenCoders-Orientation-2024&color=00d4ff&bgcolor=080d1e",
   },
@@ -465,23 +466,15 @@ function EventModal({ event, onClose }) {
   };
   const accentRGB = rgbMap[event.accent] || "0,212,255";
   const isUpcoming = event.tag === "UPCOMING";
+  const navigate = useNavigate();
+
+  const isBuildChella = event.id === 8;
 
   useEffect(() => {
     const handler = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [onClose]);
-
-  const Section = ({ title, children }) => (
-    <div style={{ marginBottom: 14 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
-        <div style={{ width: 3, height: 11, background: event.accent, borderRadius: 2 }} />
-        <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.56rem", color: event.accent, letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700 }}>{title}</span>
-        <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, " + event.accent + "40, transparent)" }} />
-      </div>
-      {children}
-    </div>
-  );
 
   return (
     <div
@@ -524,7 +517,7 @@ function EventModal({ event, onClose }) {
         {/* Main 2-column layout */}
         <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
 
-          {/* ── LEFT: poster + name + prize (locked, no scroll) ── */}
+          {/* ── LEFT: poster + name + registration ── */}
           <div style={{
             width: 220, flexShrink: 0,
             borderRight: "1px solid rgba(" + accentRGB + ",0.12)",
@@ -566,13 +559,13 @@ function EventModal({ event, onClose }) {
               )}
             </div>
 
-            {/* Registration below name — always shown */}
+            {/* Registration section */}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
                 <div style={{ width: 3, height: 12, background: event.accent, borderRadius: 2 }} />
                 <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", color: event.accent, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>Registration</span>
               </div>
-              {/* QR on top */}
+              {/* QR */}
               <div style={{
                 width: "100%", height: 140, borderRadius: 8, marginBottom: 8,
                 background: "rgba(255,255,255,0.04)",
@@ -602,7 +595,7 @@ function EventModal({ event, onClose }) {
                   </div>
                 )}
               </div>
-              {/* Register Now button below QR */}
+              {/* Register button or closed text */}
               {event.regLink ? (
                 <a href={event.regLink} target="_blank" rel="noopener noreferrer" style={{
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
@@ -624,11 +617,40 @@ function EventModal({ event, onClose }) {
                   {isUpcoming ? "Link coming soon" : "Registration closed"}
                 </div>
               )}
+
+              {/* ENTER EVENT button — only for Build-Chella */}
+              {isBuildChella && (
+                <button
+                  onClick={() => navigate("/buildchella")}
+                  style={{
+                    width: "100%", marginTop: 10,
+                    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                    fontFamily: "'Rajdhani', sans-serif", fontSize: "0.78rem", fontWeight: 700,
+                    color: "#fff", textDecoration: "none",
+                    border: "1px solid " + event.accent,
+                    borderRadius: 7, padding: "10px 12px",
+                    background: "linear-gradient(135deg, rgba(16,185,129,0.25), rgba(16,185,129,0.1))",
+                    letterSpacing: "0.12em", textTransform: "uppercase",
+                    cursor: "pointer",
+                    boxShadow: "0 0 20px rgba(16,185,129,0.3), 0 0 40px rgba(16,185,129,0.1)",
+                    animation: "livePulse 2s ease-in-out infinite",
+                  }}
+                >
+                  <span style={{
+                    width: 7, height: 7, borderRadius: "50%",
+                    background: "#10b981",
+                    boxShadow: "0 0 8px #10b981",
+                    animation: "pulse 1.5s infinite",
+                    flexShrink: 0,
+                  }} />
+                  Enter Event
+                </button>
+              )}
             </div>
 
           </div>
 
-          {/* ── RIGHT: permanently fixed, no scroll ── */}
+          {/* ── RIGHT: scrollable details ── */}
           <div style={{ flex: 1, overflowY: "auto", padding: "16px 18px" }}>
 
             {/* Badge + date/time/venue/category */}
@@ -1019,6 +1041,10 @@ export default function Events() {
         @keyframes fadeIn {
           from { opacity:0; }
           to   { opacity:1; }
+        }
+        @keyframes livePulse {
+          0%,100% { box-shadow: 0 0 20px rgba(16,185,129,0.3), 0 0 40px rgba(16,185,129,0.1); }
+          50%      { box-shadow: 0 0 30px rgba(16,185,129,0.5), 0 0 60px rgba(16,185,129,0.2); }
         }
       `}</style>
     </div>
