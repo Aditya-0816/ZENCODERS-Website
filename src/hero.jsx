@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const NAV_LINKS = ["Home", "Academic", "FAQ", "About", "Contact Us"];
 
@@ -167,14 +168,25 @@ export default function Hero() {
         >
           {NAV_LINKS.map((link) => (
             <li key={link}>
-              <a href="#" style={{
-                color: "rgba(255,255,255,0.92)", fontSize: "0.82rem",
-                fontWeight: 700, letterSpacing: "0.14em",
-                textDecoration: "none", transition: "color 0.2s",
-              }}
-                onMouseEnter={e => e.target.style.color = "#C9A84C"}
-                onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.92)"}
-              >{link}</a>
+              {link === "Contact Us" ? (
+                <Link to="/contact" style={{
+                  color: "rgba(255,255,255,0.92)", fontSize: "0.82rem",
+                  fontWeight: 700, letterSpacing: "0.14em",
+                  textDecoration: "none", transition: "color 0.2s",
+                }}
+                  onMouseEnter={e => e.currentTarget.style.color = "#C9A84C"}
+                  onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.92)"}
+                >{link}</Link>
+              ) : (
+                <a href="#" style={{
+                  color: "rgba(255,255,255,0.92)", fontSize: "0.82rem",
+                  fontWeight: 700, letterSpacing: "0.14em",
+                  textDecoration: "none", transition: "color 0.2s",
+                }}
+                  onMouseEnter={e => e.target.style.color = "#C9A84C"}
+                  onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.92)"}
+                >{link}</a>
+              )}
             </li>
           ))}
         </ul>
@@ -230,18 +242,33 @@ export default function Hero() {
 
           <nav>
             {NAV_LINKS.map((link, i) => (
-              <a key={link} href="#" onClick={() => setMenuOpen(false)} style={{
-                display: "block", fontFamily: "'Cinzel', serif",
-                fontSize: "0.92rem", fontWeight: 700, letterSpacing: "0.15em",
-                color: "rgba(255,255,255,0.82)", padding: "0.9rem 0",
-                borderBottom: "1px solid rgba(201,168,76,0.1)", textDecoration: "none",
-                transition: `color 0.2s ease, padding-left 0.2s ease, opacity 0.35s ease ${i * 55 + 80}ms, transform 0.35s ease ${i * 55 + 80}ms`,
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateX(0)" : "translateX(20px)",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.color = "#C9A84C"; e.currentTarget.style.paddingLeft = "10px"; }}
-                onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.82)"; e.currentTarget.style.paddingLeft = "0"; }}
-              >{link}</a>
+              link === "Contact Us" ? (
+                <Link key={link} to="/contact" onClick={() => setMenuOpen(false)} style={{
+                  display: "block", fontFamily: "'Cinzel', serif",
+                  fontSize: "0.92rem", fontWeight: 700, letterSpacing: "0.15em",
+                  color: "rgba(255,255,255,0.82)", padding: "0.9rem 0",
+                  borderBottom: "1px solid rgba(201,168,76,0.1)", textDecoration: "none",
+                  transition: `color 0.2s ease, padding-left 0.2s ease, opacity 0.35s ease ${i * 55 + 80}ms, transform 0.35s ease ${i * 55 + 80}ms`,
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? "translateX(0)" : "translateX(20px)",
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.color = "#C9A84C"; e.currentTarget.style.paddingLeft = "10px"; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.82)"; e.currentTarget.style.paddingLeft = "0"; }}
+                >{link}</Link>
+              ) : (
+                <a key={link} href="#" onClick={() => setMenuOpen(false)} style={{
+                  display: "block", fontFamily: "'Cinzel', serif",
+                  fontSize: "0.92rem", fontWeight: 700, letterSpacing: "0.15em",
+                  color: "rgba(255,255,255,0.82)", padding: "0.9rem 0",
+                  borderBottom: "1px solid rgba(201,168,76,0.1)", textDecoration: "none",
+                  transition: `color 0.2s ease, padding-left 0.2s ease, opacity 0.35s ease ${i * 55 + 80}ms, transform 0.35s ease ${i * 55 + 80}ms`,
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? "translateX(0)" : "translateX(20px)",
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.color = "#C9A84C"; e.currentTarget.style.paddingLeft = "10px"; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.82)"; e.currentTarget.style.paddingLeft = "0"; }}
+                >{link}</a>
+              )
             ))}
           </nav>
 
