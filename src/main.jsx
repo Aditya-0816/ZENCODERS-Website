@@ -9,6 +9,7 @@ import Gallery from './gallery'
 import Vault from './components/academic/vault'
 import Contact from './contact'
 import Buildchella from './Buildchella'
+import Hiring from './Hiring'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
         } />
         <Route path="/contact" element={<Contact />} />
         <Route path="/buildchella" element={<Buildchella />} />
+        <Route path="/hiring" element={<Hiring />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

@@ -468,6 +468,7 @@ function EventModal({ event, onClose }) {
   const isUpcoming = event.tag === "UPCOMING";
   const navigate = useNavigate();
 
+  // Detect if this is the live Build-Chella event
   const isBuildChella = event.id === 8;
 
   useEffect(() => {
@@ -475,6 +476,17 @@ function EventModal({ event, onClose }) {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [onClose]);
+
+  const Section = ({ title, children }) => (
+    <div style={{ marginBottom: 14 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+        <div style={{ width: 3, height: 11, background: event.accent, borderRadius: 2 }} />
+        <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.56rem", color: event.accent, letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700 }}>{title}</span>
+        <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, " + event.accent + "40, transparent)" }} />
+      </div>
+      {children}
+    </div>
+  );
 
   return (
     <div
@@ -517,7 +529,7 @@ function EventModal({ event, onClose }) {
         {/* Main 2-column layout */}
         <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
 
-          {/* ── LEFT: poster + name + registration ── */}
+          {/* ── LEFT: poster + name + prize (locked, no scroll) ── */}
           <div style={{
             width: 220, flexShrink: 0,
             borderRight: "1px solid rgba(" + accentRGB + ",0.12)",
@@ -559,13 +571,13 @@ function EventModal({ event, onClose }) {
               )}
             </div>
 
-            {/* Registration section */}
+            {/* Registration below name — always shown */}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
                 <div style={{ width: 3, height: 12, background: event.accent, borderRadius: 2 }} />
                 <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: "0.7rem", color: event.accent, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>Registration</span>
               </div>
-              {/* QR */}
+              {/* QR on top */}
               <div style={{
                 width: "100%", height: 140, borderRadius: 8, marginBottom: 8,
                 background: "rgba(255,255,255,0.04)",
@@ -595,7 +607,7 @@ function EventModal({ event, onClose }) {
                   </div>
                 )}
               </div>
-              {/* Register button or closed text */}
+              {/* Register Now button below QR */}
               {event.regLink ? (
                 <a href={event.regLink} target="_blank" rel="noopener noreferrer" style={{
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
@@ -618,7 +630,7 @@ function EventModal({ event, onClose }) {
                 </div>
               )}
 
-              {/* ENTER EVENT button — only for Build-Chella */}
+              {/* ── ENTER EVENT button — only for Build-Chella (live event) ── */}
               {isBuildChella && (
                 <button
                   onClick={() => navigate("/buildchella")}
@@ -650,7 +662,7 @@ function EventModal({ event, onClose }) {
 
           </div>
 
-          {/* ── RIGHT: scrollable details ── */}
+          {/* ── RIGHT: permanently fixed, no scroll ── */}
           <div style={{ flex: 1, overflowY: "auto", padding: "16px 18px" }}>
 
             {/* Badge + date/time/venue/category */}

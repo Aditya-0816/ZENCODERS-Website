@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 
 const TEAM = [
     {
         id: 8, name: "Tanishq Srivastava", role: "Public Relations",
         img: "/assets/Tanishq.png", bg: ["#5A4A2B", "#3A2A0B"], accent: "#fb923c",
-        year: "BBA • 3rd Year",
+        year: "B.Tech IT • 2nd Year",
         quote: "Every conversation is an opportunity to build something lasting.",
         about: "Tanishq is ZenCoders' face to the broader world as Public Relations Head. He actively builds and nurtures partnerships with other student clubs, corporate sponsors, and industry contacts — bringing in resources, speakers, and collaboration opportunities that elevate every event. His natural charisma and strong communication skills make him highly effective at representing the club and forging relationships that last beyond a single event.",
         skills: ["PR & Outreach", "Networking", "Content Writing", "Negotiations", "Social Media"],
@@ -16,7 +15,7 @@ const TEAM = [
     {
         id: 9, name: "Priyansh Bhardwaj", role: "Marketing Head",
         img: "/assets/Priyansh.png", bg: ["#4B6B2B", "#2B4B0B"], accent: "#a3e635",
-        year: "BBA • 3rd Year",
+        year: "B.Tech CSE • 2nd Year",
         quote: "Make it so good they cannot scroll past it.",
         about: "Priyansh heads ZenCoders' marketing with a creative, data-informed approach that has significantly grown the club's visibility across campus and social media. From designing event campaigns to crafting captions that actually get engagement, he understands what resonates with the student community. He's behind most of the branding decisions you see across ZenCoders' digital touchpoints — and his work has played a big role in making the club feel polished and credible.",
         skills: ["Digital Marketing", "Branding", "Canva", "Content Creation", "Analytics"],
@@ -27,7 +26,7 @@ const TEAM = [
     {
         id: 10, name: "Tanya Jain", role: "Digital Head",
         img: "/assets/Tanya.png", bg: ["#6B4A2B", "#4B2A0B"], accent: "#c084fc",
-        year: "B.Tech IT • 3rd Year",
+        year: "B.Tech CSE • 2nd Year",
         quote: "The internet is only as good as the people who shape it.",
         about: "Tanya leads everything digital at ZenCoders — from maintaining the website and managing social media handles to coordinating online event experiences. She combines a strong sense of visual design with technical know-how, ensuring that ZenCoders' digital presence is always sharp, consistent, and engaging. Whether it's a last-minute Instagram story for an event or a complete website update, Tanya gets it done with precision and style.",
         skills: ["Web Management", "WordPress", "SEO", "Social Media", "Graphic Design"],
@@ -38,7 +37,7 @@ const TEAM = [
     {
         id: 7, name: "Saumya Sharma", role: "Management Head",
         img: "/assets/Saumya.png", bg: ["#2B4A6B", "#0B2A4B"], accent: "#38bdf8",
-        year: "B.Tech ECE • 3rd Year",
+        year: "B.Tech CSE • 2nd Year",
         quote: "Organisation is not about perfection — it is about making space for people to thrive.",
         about: "Saumya is the glue that holds ZenCoders' internal operations together as Management Head. She oversees member onboarding, handles team documentation, and ensures that every department is aligned and functioning efficiently. Known for her approachability and organisational clarity, Saumya has built systems within the club that make it easier for new members to find their footing and for the core team to collaborate without friction.",
         skills: ["Management", "Documentation", "Google Workspace", "HR Coordination", "Planning"],
@@ -60,7 +59,7 @@ const TEAM = [
     {
         id: 5, name: "Aditya Garg", role: "Technical Head",
         img: "/assets/Aditya.png", bg: ["#2B6B4A", "#0B4B2A"], accent: "#34d399",
-        year: "BCA • 3rd Year",
+        year: "B.Tech CSE • 3rd Year",
         quote: "Clean code is not written, it is rewritten.",
         about: "Aditya leads ZenCoders' technical wing with a hands-on approach to everything code. He architected and built the club's website, has organised multiple workshops on DSA and systems programming, and actively contributes to open-source projects. Passionate about writing clean, efficient code, Aditya is also the go-to person when any member needs technical guidance — whether it's debugging a tricky problem or reviewing a project idea.",
         skills: ["React", "System Design", "C++", "Open Source", "DSA"],
@@ -71,7 +70,7 @@ const TEAM = [
     {
         id: 4, name: "Shivansh Gupta", role: "Organising Secretary",
         img: "/assets/Shivansh.png", bg: ["#8B5A2B", "#6B3A0B"], accent: "#fbbf24",
-        year: "BCA • 3rd Year",
+        year: "B.Tech IT • 3rd Year",
         quote: "Behind every great event is a thousand small decisions made right.",
         about: "Shivansh is the operational engine that keeps ZenCoders running smoothly as Organising Secretary. From coordinating venues and schedules to managing volunteer teams and post-event documentation, he handles the end-to-end logistics of every event the club runs. His meticulous planning and calm under pressure have made him indispensable — if ZenCoders pulls off a seamless event, Shivansh is the reason why.",
         skills: ["Event Management", "Operations", "Communication", "MS Office", "Team Coordination"],
@@ -82,7 +81,7 @@ const TEAM = [
     {
         id: 3, name: "Soumil Mittal", role: "Founder & President",
         img: "/assets/Soumil.png", bg: ["#3a3a5a", "#1a1a3a"], accent: "#60a5fa",
-        year: "BCA • 3rd Year",
+        year: "B.Tech CSE • 3rd Year",
         quote: "A community that codes together, grows together.",
         about: "Soumil is the Founder and President of ZenCoders, having built the club from the ground up with a singular vision — to create a space where every JIIT student can explore, learn, and grow as a developer. He leads the club's strategic direction, champions a culture of collaboration over competition, and ensures that both technical and non-technical students find their place in the community. Under his leadership, ZenCoders has grown into one of JIIT's most active and respected student clubs.",
         skills: ["Entrepreneurship", "Web Dev", "Python", "Community Building", "Public Speaking"],
@@ -93,7 +92,7 @@ const TEAM = [
     {
         id: 2, name: "Amritanshu", role: "Senior Advisor",
         img: "/assets/Amritanshu.png", bg: ["#6B4A8B", "#4B2A6B"], accent: "#a78bfa",
-        year: "Integrated B.Tech ECE • 5th Year",
+        year: "B.Tech CSE • 4th Year",
         quote: "The best way to learn is to build something you care about.",
         about: "Amritanshu is a seasoned Senior Advisor who bridges the gap between academics and club operations at ZenCoders. With deep expertise in full-stack development and a track record of representing JIIT at national-level coding competitions, he advises the team on event strategy, technical workshops, and student engagement. His ability to connect people and ideas has helped expand ZenCoders' reach across campus.",
         skills: ["Full-Stack Dev", "React", "Node.js", "Event Strategy", "Algorithms"],
@@ -104,7 +103,7 @@ const TEAM = [
     {
         id: 1, name: "Aryesh Srivastava", role: "Senior Advisor",
         img: "/assets/Aryesh.png", bg: ["#8B4A6B", "#6B2A4B"], accent: "#e879a0",
-        year: "Integrated B.Tech CSE • 5th Year",
+        year: "B.Tech CSE • 4th Year",
         quote: "Great code is written twice — once to make it work, once to make it right.",
         about: "Aryesh brings years of strategic insight to ZenCoders as a Senior Advisor, having mentored multiple generations of club leadership. With a strong foundation in software engineering and competitive programming, he has guided the team through key decisions on technical direction, event curation, and long-term club vision. His calm, analytical approach has been instrumental in shaping ZenCoders into the community it is today.",
         skills: ["Strategic Planning", "Mentorship", "C++", "Competitive Programming", "Team Leadership"],

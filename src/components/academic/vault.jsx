@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   motion, AnimatePresence, useScroll, useTransform,
   useSpring, useInView, useMotionValue, useMotionTemplate,
@@ -805,6 +806,7 @@ function ContributeCTA() {
 
 /* ─────────────────────────────────── FOOTER ─────── */
 function Footer() {
+  const navigate = useNavigate();
   return (
     <footer style={{ position:"relative",zIndex:1,
       background:"rgba(255,255,255,0.015)",borderTop:"1px solid rgba(255,255,255,0.06)",
@@ -838,10 +840,15 @@ function Footer() {
               <h4 style={{ fontFamily:"'Orbitron',sans-serif",fontSize:"0.66rem",color:"#a78bfa",
                 letterSpacing:2.5,marginBottom:18,margin:"0 0 18px" }}>{col.title}</h4>
               {col.links.map(l=>(
-                <motion.a key={l} href="#" whileHover={{ x:4,color:"#94a3b8" }}
-                  style={{ display:"block",color:"#64748b",textDecoration:"none",fontSize:"0.83rem",
-                    marginBottom:12,fontFamily:"'Exo 2',sans-serif" }}>
-                  {l}
+                <motion.a key={l}
+                  href={l === "Join ZenCoders" ? undefined : "#"}
+                  onClick={l === "Join ZenCoders" ? () => navigate("/hiring") : undefined}
+                  whileHover={{ x:4,color:"#94a3b8" }}
+                  style={{ display:"block",
+                    color: l === "Join ZenCoders" ? "#a78bfa" : "#64748b",
+                    textDecoration:"none",fontSize:"0.83rem",
+                    marginBottom:12,fontFamily:"'Exo 2',sans-serif",cursor:"pointer" }}>
+                  {l}{l === "Join ZenCoders" ? " →" : ""}
                 </motion.a>
               ))}
             </div>
